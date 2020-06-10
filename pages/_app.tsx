@@ -10,7 +10,6 @@ export default class MyApp extends App {
         return (
             <Container>
                <Layout>
-                   uri
                     <Component {...pageProps} />
                </Layout>
             </Container>
