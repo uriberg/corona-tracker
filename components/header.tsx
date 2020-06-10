@@ -36,7 +36,7 @@ const Header = () => (
                 </Link>
             </li>
             <li className="nav__item">
-                <Link href="/continent/Oceania">
+                <Link href="/continent/Oceania" prefetch={false}>
                     <a className="nav__link">Oceania</a>
                 </Link>
             </li>
