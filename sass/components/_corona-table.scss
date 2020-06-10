@@ -1,0 +1,142 @@
+
+.table-header__cell{
+  position: sticky !important;
+  top: 0;
+  z-index: 2;
+  white-space: normal !important;
+  text-align: center !important;
+  color: #db2828 !important;
+
+  @media only screen and (max-width: 900px) {
+    height: 85px !important;
+  }
+
+  @media only screen and (max-width: 600px) {
+    height: 61px !important;
+  }
+}
+
+td {
+  a {
+    color: #bf2121;
+    font-weight: 700 !important;
+
+    &:hover {
+      color: #820b0b66;
+    }
+  }
+}
+
+.ui.sortable.table thead th.sorted {
+  background: #c1c1c1 !important;
+}
+
+
+.ui.celled.table tr td, .ui.celled.table tr th {
+  border-left: none !important;
+  color: #9a2525;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ui.table tr td:first-child {
+  white-space: normal;
+}
+
+.table-wrapper {
+  position: relative;
+  padding: 5rem;
+
+  @media only screen and (max-width: 900px) {
+    padding: 3rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    padding: 0 1px 1px 1px;
+  }
+
+}
+
+.Flip {
+  background-color: #6435c90d !important;
+  font-size: 1.7rem !important;
+
+  @media only screen and (max-width: 900px) {
+      font-size: 1.5rem !important;
+  }
+
+  @media only screen and (max-width: 600px) {
+    font-size: 1.2rem !important;
+    padding: 0;
+  }
+}
+
+
+
+
+
+
+svg g line + text[text-anchor="start"]{
+  display: none;
+}
+
+svg g[transform="translate(0,0)"] line + text[text-anchor="middle"]{
+  display: block;
+}
+
+svg g:nth-child(8n + 1) line + text[text-anchor="start"]{
+  display: block;
+  @media only screen and(max-width: 600px)  {
+    display: none;
+  }
+}
+
+svg g:nth-child(8n + 1) line + text[text-anchor="start"]{
+  @media only screen and(max-width: 600px)  {
+    display: block;
+  }
+}
+
+svg g rect{
+  stroke-width: 1px;
+//stroke: rgb(232, 193, 160);
+  //fill: rgb(232, 193, 160);;
+}
+
+.barChart {
+  padding-bottom: 4rem;
+
+  height: 500px;
+
+  @media only screen and(max-height: 500px)  {
+    height: 100vh;
+  }
+}
+
+.fadeOut{
+  opacity:0;
+  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+}
+.fadeIn{
+  opacity:1;
+  transition: all .5s .2s;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.superWrapper {
+  position: relative;
+}
+
+.temp {
+  animation-name: appearSlowly;
+  animation-duration: 5s;
+  animation-timing-function: ease-out;
+  animation-delay: 5s;
+  animation-fill-mode: backwards; /*apply the 0% styles before the animation starts */
+}

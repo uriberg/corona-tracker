@@ -1,0 +1,57 @@
+
+.card {
+  padding: 1rem;
+  outline: 1.5rem solid #db282814;
+  /* transform: scale(1.05) translateY(-0.5rem); */
+  box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+  /* z-index: 20; */
+  color: #d4d4d5;
+  font-size: 1.3rem;
+
+  z-index: 2; /*consider move to utils */
+
+  @media only screen and (max-width: 400px) {
+    padding: .5rem;
+    outline: 1rem solid #db282814;
+  }
+
+  &--new-cases, &--active-cases {
+    //background-color: #314455;
+    @media only screen and (max-width: 900px) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &--general, &--deaths {
+    grid-column: 1 / -1;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  &__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+  }
+
+  &__item {
+    margin-left: 2rem;
+
+    @media only screen and (max-width: 400px) {
+      margin-left: 1rem;
+      font-size: 1.2rem;
+    }
+
+    @media only screen and (max-width: 345px) {
+      font-size: 1.1rem;
+    }
+
+    span {
+      margin-left: 3px;
+    }
+  }
+}

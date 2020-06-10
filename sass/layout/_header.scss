@@ -1,0 +1,60 @@
+
+.header {
+  padding: 2rem;
+ // background-image: linear-gradient(to right, #022140, #265077);
+  background-image: linear-gradient(to right, #2d0c0c, #3a2e2e);
+  //height: 10vh;
+  display: grid;
+  align-items: center;
+  font-size: 1.5rem;
+
+  @media only screen and (max-width: 900px) {
+    padding: 1rem;
+  }
+
+  .nav {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-gap: 2rem;
+    text-align: center;
+    letter-spacing: 1.1px;
+    align-items: center;
+
+    @media only screen and (max-width: 900px) {
+      font-size: 1.3rem;
+      letter-spacing: 0.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+      grid-gap: .5rem;
+    }
+
+    &__item--africa {
+      @media only screen and (max-width: 900px) {
+        grid-column: 2 / 4;
+      }
+    }
+
+
+    &__link:link, &__link:visited {
+      text-transform: uppercase;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: inline-block;/*fot the padding to be applied */
+      transition: all .2s;
+      border-radius: 2rem;
+    }
+
+    &__link:hover, &__link:active {
+      background-color: rgba(#fff, .05);
+      transform: translateY(-3px);
+    }
+
+    &--animated {
+      animation-name: moveInTop;
+      animation-duration: .5s;
+      animation-timing-function: ease-out;
+      animation-delay: .75s;
+      animation-fill-mode: backwards; /*apply the 0% styles before the animation starts */
+    }
+  }
+}
