@@ -1,4 +1,3 @@
-import Layout from '../components/Layout'
 import React from 'react';
 import CoronaTable from "../components/CoronaTable";
 
