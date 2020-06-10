@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Layout from "../../components/Layout";
 import CoronaTable from "../../components/CoronaTable";
 import {Continents} from "../../constants/corona-table";
 import { NextPageContext } from 'next';
