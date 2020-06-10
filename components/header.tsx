@@ -6,32 +6,32 @@ const Header = () => (
     <header className="header">
         <ul className="nav nav--animated">
             <li className="nav__item">
-                <Link href="/">
+                <Link href="/" prefetch={false}>
                     <a className="nav__link">World</a>
                 </Link>
             </li>
             <li className="nav__item">
-                <Link href="/continent/Europe">
+                <Link href="/continent/Europe" prefetch={false}>
                     <a className="nav__link">Europe</a>
                 </Link>
             </li>
             <li className="nav__item">
-                <Link href="/continent/Asia">
+                <Link href="/continent/Asia" prefetch={false}>
                     <a className="nav__link">Asia</a>
                 </Link>
             </li>
             <li className="nav__item">
-                <Link href="/continent/North_America">
+                <Link href="/continent/North_America" prefetch={false}>
                     <a className="nav__link">North America</a>
                 </Link>
             </li>
             <li className="nav__item">
-                <Link href="/continent/South_America">
+                <Link href="/continent/South_America" prefetch={false}>
                     <a className="nav__link">South America</a>
                 </Link>
             </li>
             <li className="nav__item nav__item--africa">
-                <Link href="/continent/Africa">
+                <Link href="/continent/Africa" prefetch={false}>
                     <a className="nav__link">Africa</a>
                 </Link>
             </li>
