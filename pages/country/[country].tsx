@@ -9,13 +9,17 @@ import { NextPageContext } from 'next';
 
 interface CountryProps {
     // Add your regular properties here
-    country: string
+    country: string,
+    data: any
 }
 
 class Country extends Component<CountryProps> {
     static async getInitialProps({query}: NextPageContext) {
         console.log(query.country);
-        return {country: query.country};
+        // @ts-ignore
+        const res = await axios.get("https://api.covid19api.com/total/dayone/country/" + Countries[query.country].value);
+        console.log(res);
+        return {country: query.country, data: res.data};
     }
 
     state = {
@@ -46,10 +50,9 @@ class Country extends Component<CountryProps> {
     componentDidMount(): void {
         console.log(this.props.country);
         console.log(Countries[this.props.country].value);
-        axios.get("https://api.covid19api.com/total/dayone/country/" + Countries[this.props.country].value)
-            .then(response => {
-                console.log(response.data);
-                let data = response.data;
+        console.log(this.props.data);
+
+                let data = this.props.data;
                 let temp = [];
                 let activeTemp= [ {
                     id: "ActiveCases",
@@ -136,10 +139,6 @@ class Country extends Component<CountryProps> {
                     lastSevenDaysNewCases: lastSevenDaysNewCases,
                     lastSevenDaysNewDeaths: lastSevenDaysNewDeaths
                 });
-            })
-            .catch(err => {
-                console.log(err)
-            });
 
         axios.get("https://disease.sh/v2/countries/" + this.props.country + "?yesterday=false")
             .then(response => {
