@@ -10,16 +10,30 @@ import { NextPageContext } from 'next';
 interface CountryProps {
     // Add your regular properties here
     country: string,
-    data: any
+    data: any,
+    today: any,
+    yesterday: any
 }
 
 class Country extends Component<CountryProps> {
     static async getInitialProps({query}: NextPageContext) {
         console.log(query.country);
+        let res = null;
+        let today = null;
+        let yesterday = null;
+        await axios.all([
+            // @ts-ignore
+            axios.get("https://api.covid19api.com/total/dayone/country/" + Countries[query.country].value),
+            axios.get("https://disease.sh/v2/countries/" + query.country + "?yesterday=false"),
+            axios.get("https://disease.sh/v2/countries/" + query.country + "?yesterday=true")
+        ]).then(responseArr => {
+            res = responseArr[0].data;
+            today = responseArr[1].data;
+            yesterday = responseArr[2].data;
+        })
+            .catch(err => {console.log(err); return {}});
         // @ts-ignore
-        const res = await axios.get("https://api.covid19api.com/total/dayone/country/" + Countries[query.country].value);
-        console.log(res);
-        return {country: query.country, data: res.data};
+        return {country: query.country, data: res, today: today, yesterday: yesterday};
     }
 
     state = {
@@ -140,38 +154,28 @@ class Country extends Component<CountryProps> {
                     lastSevenDaysNewDeaths: lastSevenDaysNewDeaths
                 });
 
-        axios.get("https://disease.sh/v2/countries/" + this.props.country + "?yesterday=false")
-            .then(response => {
-                console.log(response.data);
+                const today = this.props.today;
                 this.setState({
-                    totalCases: response.data.cases,
-                    totalDeaths: response.data.deaths,
-                    totalRecovered: response.data.recovered,
-                    currentlyInfected: response.data.active,
-                    deathsPerOneMillion: response.data.deathsPerOneMillion,
-                    testsPerOneMillion: response.data.testsPerOneMillion,
-                    criticalCondition: response.data.critical,
-                    todayCases: response.data.todayCases,
-                    todayDeaths: response.data.todayDeaths
+                    totalCases: today.cases,
+                    totalDeaths: today.deaths,
+                    totalRecovered: today.recovered,
+                    currentlyInfected: today.active,
+                    deathsPerOneMillion: today.deathsPerOneMillion,
+                    testsPerOneMillion: today.testsPerOneMillion,
+                    criticalCondition: today.critical,
+                    todayCases: today.todayCases,
+                    todayDeaths: today.todayDeaths
                 });
                 this.getYesterdayStats();
-            })
-            .catch(err => {
-                console.log(err)
-            });
     }
 
     getYesterdayStats = () => {
-        axios.get("https://disease.sh/v2/countries/" + this.props.country + "?yesterday=true")
-            .then(response => {
-                console.log(response.data);
-                console.log('before for loop');
-                console.log(this.state.currentlyInfected);
-                let activeCasesChange = +(this.state.currentlyInfected / response.data.active * 100 - 100).toFixed(2);
+                const yesterday = this.props.yesterday;
+                let activeCasesChange = +(this.state.currentlyInfected / yesterday.active * 100 - 100).toFixed(2);
                 console.log(activeCasesChange);
                 this.setState({activeCasesChange: activeCasesChange});
                 console.log(this.state);
-                if (this.state.currentlyInfected > this.state.worseActiveCasesNumber || response.data.active > this.state.worseActiveCasesNumber) {
+                if (this.state.currentlyInfected > this.state.worseActiveCasesNumber || yesterday.active > this.state.worseActiveCasesNumber) {
                     if (activeCasesChange > 0) {
                         this.setState({
                             worseActiveCasesDate: "Today",
@@ -180,13 +184,13 @@ class Country extends Component<CountryProps> {
                     } else {
                         this.setState({
                             worseActiveCasesDate: "Yesterday",
-                            worseActiveCasesNumber: response.data.active
+                            worseActiveCasesNumber: yesterday.active
                         });
                     }
                 }
 
-                if (this.state.todayCases > this.state.worseNewCasesNumber || response.data.todayCases > this.state.worseNewCasesNumber) {
-                    if (this.state.todayCases > response.data.todayCases) {
+                if (this.state.todayCases > this.state.worseNewCasesNumber || yesterday.todayCases > this.state.worseNewCasesNumber) {
+                    if (this.state.todayCases > yesterday.todayCases) {
                         this.setState({
                             worseNewCasesDate: "Today",
                             worseNewCasesNumber: this.state.todayCases
@@ -194,12 +198,12 @@ class Country extends Component<CountryProps> {
                     } else {
                         this.setState({
                             worseNewCasesDate: "Yesterday",
-                            worseNewCasesNumber: response.data.todayCases
+                            worseNewCasesNumber: yesterday.todayCases
                         });
                     }
                 }
 
-                if (this.state.todayDeaths > this.state.worseNewDeathsNumber || response.data.todayDeaths > this.state.worseNewDeathsNumber) {
+                if (this.state.todayDeaths > this.state.worseNewDeathsNumber || yesterday.todayDeaths > this.state.worseNewDeathsNumber) {
                     if (activeCasesChange > 0) {
                         this.setState({
                             worseNewDeathsDate: "Today",
@@ -208,14 +212,10 @@ class Country extends Component<CountryProps> {
                     } else {
                         this.setState({
                             worseNewDeathsDate: "Yesterday",
-                            worseNewDeathsNumber: response.data.todayDeaths
+                            worseNewDeathsNumber: yesterday.todayDeaths
                         });
                     }
                 }
-            })
-            .catch(err => {
-                console.log(err)
-            });
     };
 
     showGraphs = () => {
