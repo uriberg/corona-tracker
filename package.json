@@ -14,7 +14,7 @@
     "axios": "^0.19.2",
     "dateformat": "^3.0.3",
     "fomantic-ui-css": "^2.8.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
