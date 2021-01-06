@@ -11,7 +11,7 @@
     "@nivo/bar": "^0.62.0",
     "@nivo/line": "^0.62.0",
     "@types/dateformat": "^3.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dateformat": "^3.0.3",
     "fomantic-ui-css": "^2.8.5",
     "lodash": "^4.17.15",
